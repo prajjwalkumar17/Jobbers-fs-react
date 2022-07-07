@@ -1,0 +1,9 @@
+/** @format */
+
+.header__container {
+  text-align: center;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--color-bg-variant);
+}
