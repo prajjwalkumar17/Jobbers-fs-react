@@ -1,20 +1,30 @@
 /** @format */
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./signup.css";
+import axios from "axios";
 
-const Signup = ({ Login, err }) => {
+const Signup = () => {
+  let navigate = useNavigate();
   const [details, setDetails] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmpass: "",
-    phone: "",
-    role: "",
+    Name: "",
+    Email: "",
+    Password: "",
+    Password_confirm: "",
+    Phone: "",
+    Role: "",
   });
   const submitHandler = (e) => {
     e.preventDefault();
-    Login(details);
+    axios
+      .post("http://127.0.0.1:3000/api/v1/auth/signup", details)
+      .then((res) => {
+        if (res.status === 200) navigate("/dashboard", { replace: true });
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err.response.data.message));
+    // Login(details);
   };
   return (
     <form className="signupbody" onSubmit={submitHandler}>
@@ -27,8 +37,8 @@ const Signup = ({ Login, err }) => {
               type="text"
               name="name"
               class="input"
-              onChange={(e) => setDetails({ ...details, name: e.target.value })}
-              value={details.name}
+              onChange={(e) => setDetails({ ...details, Name: e.target.value })}
+              value={details.Name}
             />
           </div>
           <div class="inputfield">
@@ -38,9 +48,9 @@ const Signup = ({ Login, err }) => {
               name="email"
               class="input"
               onChange={(e) =>
-                setDetails({ ...details, email: e.target.value })
+                setDetails({ ...details, Email: e.target.value })
               }
-              value={details.email}
+              value={details.Email}
             />
           </div>
           <div class="inputfield">
@@ -50,9 +60,9 @@ const Signup = ({ Login, err }) => {
               name="password"
               class="input"
               onChange={(e) =>
-                setDetails({ ...details, password: e.target.value })
+                setDetails({ ...details, Password: e.target.value })
               }
-              value={details.password}
+              value={details.Password}
             />
           </div>
           <div class="inputfield">
@@ -62,9 +72,9 @@ const Signup = ({ Login, err }) => {
               name="cnfpass"
               class="input"
               onChange={(e) =>
-                setDetails({ ...details, confirmpass: e.target.value })
+                setDetails({ ...details, Password_confirm: e.target.value })
               }
-              value={details.confirmpass}
+              value={details.Password_confirm}
             />
           </div>
           <div class="inputfield">
@@ -72,11 +82,12 @@ const Signup = ({ Login, err }) => {
             <div class="custom_select">
               <select
                 onChange={(e) =>
-                  setDetails({ ...details, role: e.target.value })
+                  setDetails({ ...details, Role: e.target.value })
                 }
-                value={details.role}
+                value={details.Role}
               >
-                <option value="User">User</option>
+                <option value="">Select</option>
+                <option value="Job-seeker">Job-seeker</option>
                 <option value="Recruiter">Recruiter</option>
               </select>
             </div>
@@ -89,14 +100,14 @@ const Signup = ({ Login, err }) => {
               name="phone"
               class="input"
               onChange={(e) =>
-                setDetails({ ...details, phone: e.target.value })
+                setDetails({ ...details, Phone: e.target.value })
               }
-              value={details.phone}
+              value={details.Phone}
             />
           </div>
 
           <div class="inputfield">
-            <button type="submit" className="btn" onClick={console.log("")}>
+            <button type="submit" className="btn">
               Register
             </button>
           </div>

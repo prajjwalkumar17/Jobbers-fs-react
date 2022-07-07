@@ -1,5 +1,10 @@
 /** @format */
-
+.container__post {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
 .signupbody {
   display: flex;
   height: 100%;
